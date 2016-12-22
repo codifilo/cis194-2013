@@ -65,3 +65,14 @@ sieve n = takeWhile (<=n)
                 $ map (\(i, j) -> i+j+2*i*j)
                 $ filter (uncurry (<=))
                 $ cartProd [1..] [1..]
+
+isPrime :: Integer -> Bool
+isPrime n = go 2
+  where
+    go d
+      | d*d > n        = True
+      | n `rem` d == 0 = False
+      | otherwise      = go (d+1)
+
+primes :: Integer -> [Integer]
+primes n = takeWhile (<=n) $ filter isPrime [2 .. ]
